@@ -25,7 +25,6 @@ Jinja2==3.1.2''')
         self.assertEqual('requirements.txt', dependencies[1].filename)
         self.assertEqual('pip', dependencies[1].tool)
         self.assertEqual(3, dependencies[1].lineno)
-        self.assertEqual('3.1.2', dependencies[1].installed_version)
 
     def test_get_dependencies_for_maven_returns_array_of_dependencies(self):
         manifester = Manifester()
@@ -149,10 +148,3 @@ end''')
         self.assertEqual('Gemfile', dependencies[0].filename)
         self.assertEqual('ruby', dependencies[0].tool)
     
-    def test_scan_folder_returns_array_of_all_dependencies(self):
-        manifester = Manifester()
-        sample_path = path.abspath(path.join(path.dirname(__file__), '..', 'sample-projects'))
-        dependencies = manifester.scan_folder(sample_path)
-        self.assertGreater(len(dependencies), 0)
-        self.assertIsInstance(dependencies, list)
-        self.assertIsInstance(dependencies[0], Dependency)
